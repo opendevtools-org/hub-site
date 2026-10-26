@@ -385,7 +385,11 @@ foreach ($name in @(".env", "docker-compose.custom.yml", "docker-compose.apps.ym
   $p = Join-Path $TargetDir $name
   if (Test-Path $p) { Copy-Item $p (Join-Path $bak $name) -Force }
 }
-foreach ($dir in @("docker", "cli")) {
+foreach ($name in @("site-plugins.json")) {
+  $p = Join-Path $TargetDir $name
+  if (Test-Path $p) { Copy-Item $p (Join-Path $bak $name) -Force }
+}
+foreach ($dir in @("docker", "cli", "plugins", "site-catalog")) {
   $p = Join-Path $TargetDir $dir
   if (Test-Path $p) {
     robocopy $p (Join-Path $bak $dir) /E /XD .git /NFL /NDL /NJH /NJS /nc /ns /np | Out-Null
@@ -567,6 +571,17 @@ if (Test-Path (Join-Path $bak "data")) {
   New-Item -ItemType Directory -Force -Path (Join-Path $TargetDir "data\hub"), (Join-Path $TargetDir "data\pkm") | Out-Null
 }
 
+foreach ($dir in @("plugins", "site-catalog")) {
+  $saved = Join-Path $bak $dir
+  if (-not (Test-Path -LiteralPath $saved)) { continue }
+  $dest = Join-Path $TargetDir $dir
+  New-Item -ItemType Directory -Force -Path $dest | Out-Null
+  robocopy $saved $dest /E /XO /NFL /NDL /NJH /NJS /nc /ns /np | Out-Null
+  if ($LASTEXITCODE -ge 8) { throw ("robocopy {0} restore failed (exit {1})" -f $dir, $LASTEXITCODE) }
+}
+if ((Test-Path (Join-Path $bak "site-plugins.json")) -and -not (Test-Path (Join-Path $TargetDir "site-plugins.json"))) {
+  Copy-Item (Join-Path $bak "site-plugins.json") (Join-Path $TargetDir "site-plugins.json") -Force
+}
 if (Test-Path (Join-Path $bak ".env")) {
   Copy-Item (Join-Path $bak ".env") (Join-Path $TargetDir ".env") -Force
 } elseif (Test-Path (Join-Path $TargetDir "upstream\.env.example")) {

@@ -1,0 +1,28 @@
+{
+  "sites": [
+    {
+      "id": "salesforce",
+      "name": "Salesforce",
+      "apis": [
+        {
+          "id": "cases",
+          "method": "POST",
+          "title": "Leggi cases",
+          "description": "Apre l'indirizzo indicato, legge i casi della coda e restituisce le righe.",
+          "parameters": [
+            {
+              "name": "indirizzo",
+              "label": "Indirizzo",
+              "default": ""
+            },
+            {
+              "name": "coda",
+              "label": "Coda",
+              "default": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

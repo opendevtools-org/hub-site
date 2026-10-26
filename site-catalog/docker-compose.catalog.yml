@@ -1,0 +1,10 @@
+# Catalogo del sito enterprise. Lo scrive New-HomelabSite.
+services:
+  hub-platform:
+    environment:
+      HUB_SITE_PLUGINS: /site/plugins.json
+    volumes:
+      - ./site-plugins.json:/site/plugins.json:ro
+      - ./plugins/pkm:/site/pkm:ro
+      - ./plugins/api-everything:/site/api-everything:ro
+      - ./cli:/site/cli:ro

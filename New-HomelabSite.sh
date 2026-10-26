@@ -154,10 +154,10 @@ if [[ -d "$TARGET_DIR/data" ]]; then
   mkdir -p "$BAK/data"
   cp -a "$TARGET_DIR/data/." "$BAK/data/"
 fi
-for name in .env docker-compose.custom.yml docker-compose.apps.yml .env.example .gitignore .gitignore.custom; do
+for name in .env docker-compose.custom.yml docker-compose.apps.yml .env.example .gitignore .gitignore.custom site-plugins.json; do
   [[ -f "$TARGET_DIR/$name" ]] && cp -a "$TARGET_DIR/$name" "$BAK/$name"
 done
-for dir in docker cli; do
+for dir in docker cli plugins site-catalog; do
   if [[ -d "$TARGET_DIR/$dir" ]]; then
     mkdir -p "$BAK/$dir"
     cp -a "$TARGET_DIR/$dir/." "$BAK/$dir/"
@@ -276,6 +276,16 @@ if [[ -d "$BAK/data" ]]; then
   cp -a "$BAK/data/." "$TARGET_DIR/data/"
 else
   mkdir -p "$TARGET_DIR/data/hub" "$TARGET_DIR/data/pkm"
+fi
+
+for dir in plugins site-catalog; do
+  if [[ -d "$BAK/$dir" ]]; then
+    mkdir -p "$TARGET_DIR/$dir"
+    cp -an "$BAK/$dir/." "$TARGET_DIR/$dir/"
+  fi
+done
+if [[ -f "$BAK/site-plugins.json" && ! -f "$TARGET_DIR/site-plugins.json" ]]; then
+  cp -a "$BAK/site-plugins.json" "$TARGET_DIR/site-plugins.json"
 fi
 
 if [[ -f "$BAK/.env" ]]; then

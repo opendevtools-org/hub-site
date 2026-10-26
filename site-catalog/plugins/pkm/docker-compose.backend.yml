@@ -1,0 +1,37 @@
+services:
+  pkm-backend:
+    image: ghcr.io/opendevtools-org/pkm-backend:${PKM_VERSION:-latest}
+    pull_policy: if_not_present
+    restart: unless-stopped
+    environment:
+      DATA_DIR: /data
+      PLAYWRIGHT_BROWSERS_PATH: /data/scripts/googleFlightsDayTrips/.playwright-browsers
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-changeme}
+      HUB_SSO_URL: ${HUB_SSO_URL:-http://host.docker.internal:3080}
+      HUB_SERVICE_TOKEN: ${HUB_SERVICE_TOKEN:-dev-platform-token-change-me}
+      GOOGLE_DRIVE_ENABLED: ${GOOGLE_DRIVE_ENABLED:-false}
+      GOOGLE_DRIVE_FOLDER_ID: ${GOOGLE_DRIVE_FOLDER_ID:-}
+      GOOGLE_DRIVE_LOCAL_PREFIX: ${GOOGLE_DRIVE_LOCAL_PREFIX:-}
+      GOOGLE_DRIVE_CREDENTIALS_PATH: ${GOOGLE_DRIVE_CREDENTIALS_PATH:-}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID:-}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      RESEND_FROM: "${RESEND_FROM:-PKM <noreply@example.com>}"
+      NOTIFY_EMAIL_DEFAULT: ${NOTIFY_EMAIL_DEFAULT:-}
+      SCRIPT_FS_ROOTS: ${SCRIPT_FS_ROOTS:-}
+      AI_API_KEY: ${AI_API_KEY:-}
+      AI_API_BASE: ${AI_API_BASE:-https://api.openai.com/v1}
+      AI_MODEL: ${AI_MODEL:-gpt-4o-mini}
+      GF_MAX_PRICE_EUR: ${GF_MAX_PRICE_EUR:-60}
+      GF_MAX_FLIGHT_HOURS: ${GF_MAX_FLIGHT_HOURS:-3}
+      GF_DEP_MAX_HOUR: ${GF_DEP_MAX_HOUR:-10}
+      GF_RET_MIN_HOUR: ${GF_RET_MIN_HOUR:-20}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - pkm-data:/data
+
+volumes:
+  pkm-data:

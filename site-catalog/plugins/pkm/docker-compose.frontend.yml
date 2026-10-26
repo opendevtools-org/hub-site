@@ -1,0 +1,7 @@
+services:
+  pkm-frontend:
+    image: ghcr.io/opendevtools-org/pkm-frontend:${PKM_VERSION:-latest}
+    pull_policy: if_not_present
+    restart: unless-stopped
+    environment:
+      PKM_API_UPSTREAM: http://pkm-backend:8000

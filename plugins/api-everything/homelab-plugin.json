@@ -1,0 +1,16 @@
+{
+  "id": "api-everything",
+  "name": "api-everything",
+  "version": "0.1.0",
+  "description": "Siti e API di esempio. Ogni chiamata usa i parametri e restituisce il risultato.",
+  "launchPath": "/",
+  "healthcheck": "/health",
+  "ports": { "http": 8080 },
+  "compose": {
+    "file": "docker-compose.backend.yml",
+    "service": "api-everything",
+    "containerPort": 8080
+  },
+  "clients": [{ "kind": "web", "launchPath": "/" }],
+  "minPlatformVersion": "0.1.0"
+}

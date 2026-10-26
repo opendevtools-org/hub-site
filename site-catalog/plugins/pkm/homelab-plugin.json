@@ -1,0 +1,18 @@
+{
+  "id": "pkm",
+  "name": "PKM",
+  "version": "1.0.0",
+  "description": "Personal knowledge management.",
+  "launchPath": "/",
+  "healthcheck": "/api/health",
+  "apiPrefix": "/api",
+  "ports": { "http": 8000 },
+  "compose": {
+    "file": "docker-compose.backend.yml",
+    "service": "pkm-backend",
+    "containerPort": 8000
+  },
+  "sso": true,
+  "clients": [{ "kind": "web", "launchPath": "/" }],
+  "minPlatformVersion": "0.1.0"
+}

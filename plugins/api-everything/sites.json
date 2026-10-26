@@ -1,0 +1,95 @@
+{
+  "sites": [
+    {
+      "id": "salesforce",
+      "name": "Salesforce",
+      "apis": [
+        {
+          "id": "cases",
+          "method": "POST",
+          "title": "Leggi cases",
+          "description": "Apre l'indirizzo indicato, legge i casi della coda e restituisce le righe.",
+          "parameters": [
+            {
+              "name": "indirizzo",
+              "label": "Indirizzo",
+              "default": ""
+            },
+            {
+              "name": "coda",
+              "label": "Coda",
+              "default": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cve-advisory",
+      "name": "CVE advisory",
+      "apis": [
+        {
+          "id": "openssl",
+          "method": "POST",
+          "title": "OpenSSL",
+          "description": "Indica un CVE per leggere l'advisory, oppure una versione per vedere quali CVE la riguardano.",
+          "parameters": [
+            { "name": "cve", "label": "CVE", "default": "" },
+            { "name": "versione", "label": "Versione", "default": "" }
+          ]
+        },
+        {
+          "id": "curl",
+          "method": "POST",
+          "title": "curl",
+          "description": "Indica un CVE per leggere l'advisory, oppure una versione per vedere quali CVE la riguardano.",
+          "parameters": [
+            { "name": "cve", "label": "CVE", "default": "" },
+            { "name": "versione", "label": "Versione", "default": "" }
+          ]
+        },
+        {
+          "id": "apache-cxf",
+          "method": "POST",
+          "title": "Apache CXF",
+          "description": "Indica un CVE per leggere l'advisory, oppure una versione per vedere quali CVE la riguardano.",
+          "parameters": [
+            { "name": "cve", "label": "CVE", "default": "" },
+            { "name": "versione", "label": "Versione", "default": "" }
+          ]
+        },
+        {
+          "id": "go",
+          "method": "POST",
+          "title": "Go",
+          "description": "Legge l'advisory ufficiale di Go e restituisce le informazioni del CVE.",
+          "parameters": [{ "name": "cve", "label": "CVE", "default": "" }]
+        },
+        {
+          "id": "kubernetes",
+          "method": "POST",
+          "title": "Kubernetes",
+          "description": "Legge l'advisory ufficiale di Kubernetes e restituisce le informazioni del CVE.",
+          "parameters": [{ "name": "cve", "label": "CVE", "default": "" }]
+        },
+        {
+          "id": "python",
+          "method": "POST",
+          "title": "Python",
+          "description": "Legge l'advisory ufficiale di Python e restituisce le informazioni del CVE.",
+          "parameters": [{ "name": "cve", "label": "CVE", "default": "" }]
+        },
+        {
+          "id": "semeru",
+          "method": "POST",
+          "title": "Semeru",
+          "description": "Indica un CVE per leggere l'advisory, oppure una versione per vedere quali CVE la riguardano.",
+          "parameters": [
+            { "name": "cve", "label": "CVE", "default": "" },
+            { "name": "versione", "label": "Versione", "default": "" }
+          ]
+        }
+      ]
+    }
+  ]
+}

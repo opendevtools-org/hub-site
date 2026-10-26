@@ -1,0 +1,32 @@
+{
+  "defaults": [
+    {
+      "id": "pkm",
+      "label": "PKM",
+      "repo": "opendevtools-org/pkm",
+      "repoRef": "main",
+      "officialTier": "free",
+      "bundle": "/site/pkm"
+    }
+  ],
+  "public": [
+    {
+      "id": "guacamole",
+      "label": "Apache Guacamole",
+      "repo": "opendevtools-org/hub-community-plugins",
+      "repoRef": "main",
+      "repoPath": "plugins/guacamole",
+      "officialTier": "free"
+    }
+  ],
+  "official": [
+    {
+      "id": "api-everything",
+      "label": "api-everything",
+      "repo": "local/api-everything",
+      "repoRef": "main",
+      "officialTier": "paid",
+      "bundle": "/site/api-everything"
+    }
+  ]
+}

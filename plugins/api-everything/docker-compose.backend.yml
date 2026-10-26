@@ -1,0 +1,22 @@
+services:
+  api-everything:
+    build: .
+    image: api-everything:local
+    pull_policy: build
+    restart: unless-stopped
+    init: true
+    shm_size: "1gb"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      SALESFORCE_DIR: /opt/salesforce
+      BROWSER_PROFILE: /data/profile
+      SALESFORCE_CDP_URL: ${SALESFORCE_CDP_URL:-}
+      BROWSER_HEADLESS: ${BROWSER_HEADLESS:-1}
+      PYTHONPATH: /app/framework-lib-script
+    volumes:
+      - /site/cli/custom/salesforce_cases:/opt/salesforce:ro
+      - api-everything-profile:/data/profile
+
+volumes:
+  api-everything-profile:

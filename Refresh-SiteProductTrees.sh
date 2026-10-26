@@ -41,6 +41,31 @@ copy_docker_examples() {
   done < <(find "$src" -type f)
 }
 
+copy_missing() {
+  local src="$1" dest="$2"
+  [[ -d "$src" ]] || return 0
+  mkdir -p "$dest"
+  local file rel target
+  while IFS= read -r file; do
+    rel="${file#"$src"/}"
+    rel="${rel#./}"
+    target="$dest/$rel"
+    [[ -e "$target" ]] && continue
+    mkdir -p "$(dirname "$target")"
+    cp -a "$file" "$target"
+  done < <(find "$src" -type f ! -name '*.pyc' ! -path '*/__pycache__/*' ! -path '*/.pytest_cache/*')
+}
+
+copy_missing "$UPSTREAM/plugins" "$SITE_ROOT/plugins"
+copy_missing "$UPSTREAM/site-catalog" "$SITE_ROOT/site-catalog"
+if [[ ! -f "$SITE_ROOT/site-plugins.json" ]]; then
+  if [[ -f "$UPSTREAM/site-plugins.json" ]]; then
+    cp -a "$UPSTREAM/site-plugins.json" "$SITE_ROOT/site-plugins.json"
+  elif [[ -f "$UPSTREAM/site-catalog/site-plugins.json" ]]; then
+    cp -a "$UPSTREAM/site-catalog/site-plugins.json" "$SITE_ROOT/site-plugins.json"
+  fi
+fi
+
 copy_tree "$UPSTREAM/scriptkit" "$SITE_ROOT/scriptkit"
 copy_tree "$UPSTREAM/agent-context" "$SITE_ROOT/agent-context" "site"
 copy_docker_examples "$UPSTREAM/docker" "$SITE_ROOT/docker"
