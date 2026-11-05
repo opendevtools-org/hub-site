@@ -1,0 +1,29 @@
+name: enterprise-backend
+
+services:
+  hub-backend:
+    image: ghcr.io/opendevtools-org/homelab-platform:${HUB_VERSION:-enterprise}
+    container_name: enterprise-hub-backend
+    pull_policy: always
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      HUB_EDITION: docker
+      HOST: 0.0.0.0
+      PORT: "8090"
+      LOG_LEVEL: info
+      DATABASE_PATH: /data/hub.sqlite
+      PLUGINS_DATA_DIR: /data/plugins
+      HUB_CONTAINER_NAME: enterprise-hub-backend
+      HUB_PLUGIN_NETWORK: enterprise-plugins
+      HUB_PUBLIC_URL: ${HUB_PUBLIC_URL:-http://127.0.0.1:3080}
+      HUB_API_PUBLIC_URL: ${HUB_API_PUBLIC_URL:-http://127.0.0.1:8091}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://127.0.0.1:3080,http://localhost:3080}
+    ports:
+      - "127.0.0.1:${BE_PORT:-8091}:8090"
+    volumes:
+      - ./data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

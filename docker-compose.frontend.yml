@@ -1,0 +1,13 @@
+name: enterprise-frontend
+
+services:
+  hub-frontend:
+    image: ghcr.io/opendevtools-org/homelab-hub:${HUB_VERSION:-enterprise}
+    pull_policy: always
+    restart: unless-stopped
+    environment:
+      HUB_API_UPSTREAM: http://host.docker.internal:${BE_PORT:-8091}
+    ports:
+      - "${FE_BIND:-127.0.0.1}:${FE_PORT:-3080}:80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
