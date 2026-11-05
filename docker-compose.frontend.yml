@@ -6,8 +6,14 @@ services:
     pull_policy: always
     restart: unless-stopped
     environment:
-      HUB_API_UPSTREAM: http://host.docker.internal:${BE_PORT:-8091}
+      HUB_API_UPSTREAM: http://hub-backend:8090
     ports:
       - "${FE_BIND:-127.0.0.1}:${FE_PORT:-3080}:80"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    networks:
+      - default
+      - backend
+
+networks:
+  backend:
+    external: true
+    name: enterprise-backend_default
